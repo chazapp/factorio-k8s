@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: factorio-udp
+spec:
+  type: LoadBalancer
+  selector:
+    app: factorio-dep
+  ports:
+    - name: factorio-udp
+      port: 34197
+      targetPort: 34197
+      protocol: UDP

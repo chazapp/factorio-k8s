@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: v1
+metadata:
+  name: factorio-dep
+spec:
+  selector:
+    matchLabels:
+      app: factorio-dep
+  template:
+    metadata:
+      labels:
+        app: factorio-dep
+    spec:
+      containers:
+        - name: factorio
+          image: factoriotools/factorio:1.1.68
+          resources:
+            requests:
+              memory: 4096Mi
+              cpu: 250m
+          ports:
+            - name: factorio-rcon
+              containerPort: 27015
+              protocol: TCP
+            - name: factorio-udp
+              containerPort: 34197
+              protocol: UDP
+          volumeMounts:
+            - name: factorio-data
+              mountPath: /factorio
+            - name: factorio-config
+              mountPath: /factorio/config/server-settings.json
+              subPath: server-settings.json
+            - name: factorio-whitelist
+              mountPath: /factorio/config/server-whitelist.json
+              subPath: server-whitelist.json
+      volumes:
+        - name: factorio-data
+          persistentVolumeClaim:
+            claimName: factorio-data
+        - name: factorio-config
+          configMap:
+            name: factorio-settings
+        - name: factorio-whitelist
+          configMap:
+            name: factorio-whitelist
