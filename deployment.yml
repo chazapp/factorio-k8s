@@ -33,9 +33,11 @@ spec:
             - name: factorio-config
               mountPath: /factorio/config/server-settings.json
               subPath: server-settings.json
+              readOnly: false
             - name: factorio-whitelist
               mountPath: /factorio/config/server-whitelist.json
               subPath: server-whitelist.json
+              readOnly: false
       volumes:
         - name: factorio-data
           persistentVolumeClaim:
