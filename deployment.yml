@@ -20,9 +20,9 @@ spec:
             requests:
               memory: 512Mi
               cpu: 250m
-            securityContext:
-              runAsUser: 845
-              runAsGroup: 845
+          securityContext:
+            runAsUser: 845
+            runAsGroup: 845
           ports:
             - name: factorio-rcon
               containerPort: 27015
